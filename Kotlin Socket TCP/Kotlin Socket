@@ -1,0 +1,38 @@
+//............................ kotlin code for server Socket................................
+import java.net.ServerSocket
+fun main() {
+    val server = ServerSocket(999)
+    while (true){
+        val a = alpha(server)
+        println(a)
+    }
+}
+fun alpha(server:ServerSocket):Boolean{
+    var a:Boolean
+    while (true){
+        val socket1 = server.accept()
+        println(socket1)
+        print("enter the input : ")
+        val b = readLine()!!
+        socket1.getOutputStream().write(b.toByteArray())
+        a =socket1.isBound
+        socket1.close()
+        if (a) {
+            break
+        }
+    }
+    return a
+}
+//............................... kotlin code for client..........................
+import java.net.Socket
+import java.util.*
+
+fun main() {
+    val socket = Socket("127.0.0.1",999)
+    val scanner= Scanner(socket.getInputStream())
+    while (scanner.hasNextLine()){
+        val a = scanner.nextLine()
+        println(a)
+        break
+    }
+}
